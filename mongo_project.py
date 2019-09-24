@@ -28,13 +28,13 @@ conn = mongo_connect(MONGODB_URI) #returns object into conn var
 coll = conn[DBS_NAME][COLLECTION_NAME]
 
 def add_record():
-    first = input("Enter first name")
-    last = input("Enter last name")
-    dob = input("Enter date of birth in format XX/XX/XXXX")
-    gender = input("Enter gender")
-    hair = input("Enter the hair colour")
-    nationality = input("Enter the nationality")
-    occupation = input("Enter occupation")
+    first = input("Enter first name > ")
+    last = input("Enter last name > ")
+    dob = input("Enter date of birth in format XX/XX/XXXX > ")
+    gender = input("Enter gender > ")
+    hair = input("Enter the hair colour > ")
+    nationality = input("Enter the nationality > ")
+    occupation = input("Enter occupation > ")
 
     new_doc = {'first': first.lower(), 'last':last.lower(), 'dob':dob.lower(), 'gender': gender.lower(), 'hair_color':hair.lower(), 'nationality':nationality.lower(), 'occupation': occupation.lower()}
 
