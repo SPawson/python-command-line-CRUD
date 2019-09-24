@@ -27,6 +27,24 @@ conn = mongo_connect(MONGODB_URI) #returns object into conn var
 
 coll = conn[DBS_NAME][COLLECTION_NAME]
 
+def get_record():
+    print("")
+    first = input("Enter first name > ")
+    last = input("Enter last name > ")
+
+    record = {'first': first.lower(), 'last': last.lower()}
+
+    try:
+        doc = coll.find_one(record)
+    except:
+        print("Error accessing database")
+    
+    if not doc:
+        print("")
+        print("Error! No results found for %s %s" % (first.lower(), last.lower()))
+
+    return doc
+
 def add_record():
     first = input("Enter first name > ")
     last = input("Enter last name > ")
