@@ -37,7 +37,7 @@ def get_record():
     record = {'first': first.lower(), 'last': last.lower()} #combines names into same var
 
     try:
-        doc = coll.find_one(record) #Searches database for the record
+        doc = coll.find_one(record) #Searches database for the record and returns full document
     except:
         print("Error accessing database")
     
