@@ -97,6 +97,27 @@ def edit_record():
         except:
             print("Error accessing database")
 
+def delete_record():
+    doc = get_record()
+
+    if doc:
+        print("")
+        for k,v in doc.items(): # prints the entire record for user 
+            if k != "_id": 
+                print(k.upper() + ": " + v.upper())
+        print("")
+        confirm = input("Is this the document you wish to delete\nY/N > ")
+
+        if confirm.lower() == "y": #user confirms if correct record
+            try:
+                coll.delete_one(doc) #delete_one method called on DB
+                print("Record Deleted")
+            except:
+                print("Error deleting record from DB")
+        else:
+            print("Record not deleted")
+            show_menu()
+
 def main_loop():
     """Main loop of the program runs from here """
 
@@ -110,7 +131,7 @@ def main_loop():
         elif option == "3":
             edit_record()
         elif option == "4":
-            print('You have selected option 4')
+            delete_record()
         elif option == "5":
             print('Goodbye')
             conn.close()
