@@ -22,7 +22,7 @@ def show_menu():
     print("4. Delete a record")
     print("5. Exit")
 
-    option = input("Enter an option")
+    option = input("Enter an option > ")
     return option
 
 conn = mongo_connect(MONGODB_URI) #returns object into conn var
@@ -68,6 +68,17 @@ def add_record():
         print("Error accessing the database")
 
 
+def find_record():
+    doc = get_record()
+    if doc:
+        print("")
+        for k,v in doc.items(): #items method will display k,v in doc var
+            if k != "_id": #If key doesnt equal the id then it wont be printed
+                print("")
+                print(k.upper() + ": " + v.upper())
+
+
+
 def main_loop():
     """Main loop of the program runs from here """
 
@@ -77,7 +88,7 @@ def main_loop():
         if option == "1":
             add_record()
         elif option == "2":
-            print('You have selected option 2')
+            find_record()
         elif option == "3":
             print('You have selected option 3')
         elif option == "4":
