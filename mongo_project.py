@@ -74,10 +74,28 @@ def find_record():
         print("")
         for k,v in doc.items(): #items method will display k,v in doc var
             if k != "_id": #If key doesnt equal the id then it wont be printed
-                print("")
                 print(k.upper() + ": " + v.upper())
 
+def edit_record():
+    doc = get_record()
 
+    if doc:
+        update_doc = {}
+        print("")
+        for k,v in doc.items():
+            if k != "_id": 
+                update_doc[k] = input(k.upper() + " [" + v + "] > ") # enters the value for the current key
+
+                if update_doc[k] == "":
+                    update_doc[k] = v #if doc is left blank it puts current value in record
+
+        try:
+            #print(update_doc)
+            coll.update_one(doc, {'$set': update_doc})
+            print("")
+            print("Record updated")
+        except:
+            print("Error accessing database")
 
 def main_loop():
     """Main loop of the program runs from here """
@@ -90,7 +108,7 @@ def main_loop():
         elif option == "2":
             find_record()
         elif option == "3":
-            print('You have selected option 3')
+            edit_record()
         elif option == "4":
             print('You have selected option 4')
         elif option == "5":
