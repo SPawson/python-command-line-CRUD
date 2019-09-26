@@ -13,6 +13,8 @@ def mongo_connect(url):
         print("Could not connect to MongoDB: %s") % e
 
 def show_menu():
+    """Displays the text menu to the user"""
+
     print("")
     print("1. Add a record")
     print("2. Find a record by name")
@@ -29,23 +31,25 @@ coll = conn[DBS_NAME][COLLECTION_NAME]
 
 def get_record():
     print("")
-    first = input("Enter first name > ")
-    last = input("Enter last name > ")
+    first = input("Enter first name > ") #first name of record
+    last = input("Enter last name > ") # lastname of record to be searched
 
-    record = {'first': first.lower(), 'last': last.lower()}
+    record = {'first': first.lower(), 'last': last.lower()} #combines names into same var
 
     try:
-        doc = coll.find_one(record)
+        doc = coll.find_one(record) #Searches database for the record
     except:
         print("Error accessing database")
     
-    if not doc:
+    if not doc: # If doc doesnt contain any items it will notify the user
         print("")
         print("Error! No results found for %s %s" % (first.lower(), last.lower()))
 
     return doc
 
 def add_record():
+    """This will ask for all input fields to be entered then will submit to the DB"""
+
     first = input("Enter first name > ")
     last = input("Enter last name > ")
     dob = input("Enter date of birth in format XX/XX/XXXX > ")
@@ -57,7 +61,7 @@ def add_record():
     new_doc = {'first': first.lower(), 'last':last.lower(), 'dob':dob.lower(), 'gender': gender.lower(), 'hair_color':hair.lower(), 'nationality':nationality.lower(), 'occupation': occupation.lower()}
 
     try:
-        coll.insert_one(new_doc)
+        coll.insert_one(new_doc) # calls insert method and submits the record
         print("")
         print("Record inserted")
     except:
@@ -65,6 +69,8 @@ def add_record():
 
 
 def main_loop():
+    """Main loop of the program runs from here """
+
     while True:
         option = show_menu()
         #menu options
@@ -83,4 +89,4 @@ def main_loop():
         else:
             print("Please enter a valid choice")
 
-main_loop()
+main_loop() # Main loop called and activated
